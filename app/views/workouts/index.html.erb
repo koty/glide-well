@@ -1,0 +1,25 @@
+<h1>Workouts#index</h1>
+<p>Find me in app/views/workouts/index.html.erb</p>
+<ul class="users">
+  <%= link_to '新規登録', {controller: :workouts, action: :new} %>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">email</th>
+      <th scope="col">date</th>
+      <th scope="col">kind</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @workouts.each do |w| %>
+      <tr>
+        <th scope="row"><%= w.user_id %></th>
+        <td><%= w.user.email %></td>
+        <td><%= w.date %></td>
+        <td><%= w.kind %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</ul>
