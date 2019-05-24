@@ -1,7 +1,7 @@
 <h1>Workouts#index</h1>
 <p>Find me in app/views/workouts/index.html.erb</p>
 <ul class="users">
-  <%= link_to '新規登録', {controller: :workouts, action: :new} %>
+  <%= link_to '新規登録', new_workout_path %>
   <table class="table">
     <thead>
     <tr>
@@ -18,6 +18,7 @@
         <td><%= w.user.email %></td>
         <td><%= w.date %></td>
         <td><%= w.kind %></td>
+        <td><%= link_to '編集', edit_workout_path(w) %></td>
       </tr>
     <% end %>
     </tbody>
