@@ -1,11 +1,14 @@
 class WorkoutDetailsController < ApplicationController
-  before_action :set_workout, only: [:show, :edit, :destroy]
 
   def index
     @workouts = Workout.where(user_id: current_user.id)
   end
 
   def show
+    respond_to do |format|
+      workout_details = WorkoutDetail.where(workout_id: params[:workout_id])
+      format.json {render json: workout_details.as_json}
+    end
   end
 
   def new
@@ -26,17 +29,18 @@ class WorkoutDetailsController < ApplicationController
   end
 
   def create
-    @workout = Workout.new(workout_params)
-    @workout.user_id = current_user.id
-    @workout.timestamps = Time.now
-    respond_to do |format|
-      if @workout.save
-        format.html {redirect_to @workout, notice: 'Workout was successfully created.'}
-        format.json {render action: 'show', status: :created, location: @workout}
-      else
-        format.html {render action: 'new'}
-        format.json {render json: @workout.errors, status: :unprocessable_entity}
+    workout_id = params[:workout_id]
+    workout_details = WorkoutDetail.where workout_id: workout_id
+    workout_details.delete_all
+    workout_detail_params.each do |item|
+      detail = WorkoutDetail.new(item)
+      detail.workout_id = workout_id
+      if !detail.save
+        puts 'error'
       end
+    end
+    respond_to do |format|
+      format.json {render json: 'success', status: :created}
     end
   end
 
@@ -44,9 +48,12 @@ class WorkoutDetailsController < ApplicationController
   end
 
   private
-  def workout_params
-    params.require(:workout).permit(:date, :kind)
+  def workout_detail_params
+    params.require(:workout_details).map do |workout_detail|
+      workout_detail.permit(:menu_kind, :times, :interval, :note, :distance)
+    end
   end
+
   def set_workout
     @workout = Workout.find(params[:id])
   end

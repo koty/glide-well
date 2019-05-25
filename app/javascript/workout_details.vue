@@ -27,10 +27,13 @@
 export default {
   data: () => {
     return {
-      details: [
-        { menu_kind: 1, times: 4, interval: 3.5, note: ''},
-      ]
+      details: []
     }
+  },
+  mounted: async function() {
+    const workout_id = location.pathname.split('/')[2];
+    const response = await fetch(`/workout_details/${workout_id}/`);
+    this.details = await response.json();
   },
   methods: {
     addRow: function() {
@@ -40,14 +43,17 @@ export default {
       this.details.splice(index, 1);
     },
     saveDetails: function() {
+      // /workouts/6/edit
+      const workout_id = location.pathname.split('/')[2];
       const method = "POST";
-      const body = JSON.stringify(this.details);
+      const body = JSON.stringify({workout_details: this.details});
+      const csrfToken = document.getElementsByName('csrf-token')[0].content;
       const headers = {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken
       };
-      fetch("/workout_details/", {method, headers, body})
-          .then((res)=> res.json());
+      fetch(`/workout_details/${workout_id}/`, {method, headers, body});
     }
   },
 }
