@@ -1,2 +1,20 @@
 <h1>Workouts#show</h1>
 <p>Find me in app/views/workouts/show.html.erb</p>
+<div>
+UserId: <%= @workout.user_id %>
+</div>
+<div>
+email: <%= @workout.user.email %>
+</div>
+<div>
+date: <%= @workout.date %>
+</div>
+<div>
+kind: <%= @workout.kind %>
+</div>
+<div>
+<%= link_to 'Edit', edit_workout_path(@workout) %>
+</div>
+<div>
+  <a href="/workouts/">Back</a>
+</div>

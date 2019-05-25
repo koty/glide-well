@@ -11,4 +11,5 @@
 
 class Workout < ApplicationRecord
   belongs_to :user
+  enum kind: { swimming: 0, bicycle: 1 }
 end
