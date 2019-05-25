@@ -11,5 +11,5 @@
 
 class Workout < ApplicationRecord
   belongs_to :user
-  enum kind: { swimming: 0, bicycle: 1 }
+  enum kind: { swimming: "0", bicycle: "1" }  # validationが通らないので数値型にしとく
 end

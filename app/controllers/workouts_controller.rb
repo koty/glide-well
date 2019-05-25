@@ -1,5 +1,5 @@
 class WorkoutsController < ApplicationController
-  before_action :set_workout, only: [:show, :edit, :destroy]
+  before_action :set_workout, only: [:show, :edit, :destroy, :update]
 
   def index
     @workouts = Workout.where(user_id: current_user.id)
