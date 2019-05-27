@@ -18,7 +18,10 @@
         <td><%= w.user.email %></td>
         <td><%= w.date %></td>
         <td><%= w.kind %></td>
-        <td><%= link_to '編集', edit_workout_path(w) %></td>
+        <td>
+          <%= link_to '編集', edit_workout_path(w) %>
+          <%= link_to '削除', w, method: :delete, data: {confirm: 'Are you sure?'} %>
+        </td>
       </tr>
     <% end %>
     </tbody>
