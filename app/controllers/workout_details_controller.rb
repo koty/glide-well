@@ -11,11 +11,6 @@ class WorkoutDetailsController < ApplicationController
     end
   end
 
-  def new
-    @initial_date = '20190524'
-    @initial_kind = 2
-  end
-
   def update
     respond_to do |format|
       if @workout.update(workout_params)

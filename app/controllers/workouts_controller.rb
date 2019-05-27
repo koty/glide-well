@@ -9,8 +9,8 @@ class WorkoutsController < ApplicationController
   end
 
   def new
-    @initial_date = '20190524'
-    @initial_kind = 2
+    @initial_date = Date.today.strftime('%Y%m%d')
+    @initial_kind = 'swimming'
   end
 
   def update
@@ -32,7 +32,7 @@ class WorkoutsController < ApplicationController
     respond_to do |format|
       if @workout.save
         format.html {redirect_to @workout, notice: 'Workout was successfully created.'}
-        format.json {render action: 'show', status: :created, location: @workout}
+        format.json {redirect_to @workout, action: 'edit'}
       else
         format.html {render action: 'new'}
         format.json {render json: @workout.errors, status: :unprocessable_entity}
