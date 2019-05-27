@@ -5,7 +5,7 @@
   </div>
   <div class="field">
     <%= f.label :kind %>
-    <%= f.select :kind, [["swimming", 1], ["bike", 2]] %>
+    <%= f.select :kind, [%w(swimming swimming), %w(bike bicycle)] %>
   </div>
   <div class="actions">
     <%= f.submit :class => "btn btn-primary" %>

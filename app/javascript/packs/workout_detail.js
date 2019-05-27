@@ -10,9 +10,8 @@ import App from '../workout_details.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('details-container')
-  const el = container.appendChild(document.createElement('hello'))
   const app = new Vue({
-    el,
+    container,
     render: h => h(App)
   })
 
