@@ -5,7 +5,7 @@
 #  id         :bigint           not null, primary key
 #  user_id    :bigint           not null
 #  date       :date             not null
-#  kind       :integer          not null
+#  kind       :string           not null
 #  timestamps :datetime         not null
 #
 
