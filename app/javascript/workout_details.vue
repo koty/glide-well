@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <table class="table">
-      <thead><th>kind</th><th>distance</th><th>times</th><th>interval</th><th>note</th></thead>
+      <thead><th>kind</th><th>distance(m)</th><th>times</th><th>interval(sec)</th><th>note</th></thead>
       <tbody>
       <tr v-for="(detail, index) in details">
         <td><select v-model="detail.menu_kind">
@@ -10,10 +10,10 @@
           <option value="3">paddle</option>
           <option value="3">IM</option>
         </select></td>
-        <td><input type="text" v-model="detail.distance" /></td>
-        <td><input type="number" v-model="detail.times" /></td>
-        <td><input type="number" v-model="detail.interval" /></td>
-        <td><textarea v-model="detail.note" /></td>
+        <td><input type="number" v-model="detail.distance" class="input-item" /></td>
+        <td><input type="number" v-model="detail.times" class="input-item" /></td>
+        <td><input type="number" v-model="detail.interval" class="input-item" />{{toMinutes(detail.interval)}}</td>
+        <td><textarea v-model="detail.note" class="input-item" /></td>
         <td><button @click="deleteRow(index)">del</button></td>
       </tr>
       </tbody>
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     addRow: function() {
-      this.details.push({ menu_kind: 1, times: 4, interval: 3.5, note: ''});
+      this.details.push({ menu_kind: 1, times: 4, interval: 210, note: ''});
     },
     deleteRow: function(index) {
       this.details.splice(index, 1);
@@ -54,6 +54,14 @@ export default {
         'X-CSRF-Token': csrfToken
       };
       fetch(`/workout_details/${workout_id}/`, {method, headers, body});
+    },
+    toMinutes: function (seconds) {
+      if (!seconds) {
+        return ''
+      }
+      const min = Math.floor(seconds / 60)
+      const sec = seconds - (60 * min)
+      return `${min}.${sec}`
     }
   },
 }
@@ -64,4 +72,7 @@ p {
   font-size: 2em;
   text-align: center;
 }
+  .input-item {
+    width: 50px;
+  }
 </style>

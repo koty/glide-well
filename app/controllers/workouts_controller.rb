@@ -9,7 +9,7 @@ class WorkoutsController < ApplicationController
   end
 
   def new
-    @initial_date = Date.today.strftime('%Y%m%d')
+    @initial_date = Date.today.strftime('%Y-%m-%d')
     @initial_kind = 'swimming'
   end
 

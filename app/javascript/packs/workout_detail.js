@@ -9,9 +9,9 @@ import Vue from 'vue'
 import App from '../workout_details.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('details-container')
+  const el = document.getElementById('details-container')
   const app = new Vue({
-    container,
+    el,
     render: h => h(App)
   })
 

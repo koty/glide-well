@@ -1,12 +1,10 @@
 <h1>Workouts#index</h1>
 <p>Find me in app/views/workouts/index.html.erb</p>
 <ul class="users">
-  <%= link_to '新規登録', new_workout_path %>
+  <%= link_to '新規登録', new_workout_path, data: {turbolinks: false} %>
   <table class="table">
     <thead>
     <tr>
-      <th scope="col">user id</th>
-      <th scope="col">email</th>
       <th scope="col">date</th>
       <th scope="col">kind</th>
       <th scope="col"></th>
@@ -15,12 +13,10 @@
     <tbody>
     <% @workouts.each do |w| %>
       <tr>
-        <th scope="row"><%= w.user_id %></th>
-        <td><%= w.user.email %></td>
         <td><%= w.date %></td>
         <td><%= w.kind %></td>
         <td>
-          <%= link_to '編集', edit_workout_path(w) %>
+          <%= link_to '編集', edit_workout_path(w), data: {turbolinks: false} %>
           <%= link_to '削除', w, method: :delete, data: {confirm: 'Are you sure?'} %>
         </td>
       </tr>

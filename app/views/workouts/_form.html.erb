@@ -1,7 +1,7 @@
 <%= form_with model: @workout, local: true do |f| %>
   <div class="field">
     <%= f.label :date %>
-    <%= f.text_field :date %>
+    <%= f.text_field :date, type: :date %>
   </div>
   <div class="field">
     <%= f.label :kind %>

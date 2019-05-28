@@ -2,7 +2,7 @@
 <p>Find me in app/views/workouts/new.html.erb</p>
 <%= form_with model: Workout.new, local: true do |f| %>
   <div>
-    <span><label>日付</label><%= f.text_field :date, value: @initial_date %></span>
+    <span><label>日付</label><%= f.text_field :date, value: @initial_date, type: :date %></span>
     <span><label>練習内容</label><%= f.select :kind, [["swimming", 'swimming'], ["bike", 'bicycle']] %></span>
   </div>
   <%= f.submit '保存', class: 'btn btn-primary' %>
