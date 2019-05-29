@@ -1,7 +1,11 @@
-<h1>Workouts#index</h1>
-<p>Find me in app/views/workouts/index.html.erb</p>
+<% content_for :title do %>
+  GlideWell - Workouts List
+<% end %>
+<h1>Workouts List</h1>
 <ul class="users">
-  <%= link_to '新規登録', new_workout_path, data: {turbolinks: false} %>
+  <%= link_to 'New workout', new_workout_path, data: {turbolinks: false},
+              class: "btn btn-primary btn-lg active",
+              role: "button", style: "margin-bottom: 1em;" %>
   <table class="table">
     <thead>
     <tr>
@@ -16,8 +20,8 @@
         <td><%= w.date %></td>
         <td><%= w.kind %></td>
         <td>
-          <%= link_to '編集', edit_workout_path(w), data: {turbolinks: false} %>
-          <%= link_to '削除', w, method: :delete, data: {confirm: 'Are you sure?'} %>
+          <%= link_to 'edit', edit_workout_path(w), data: {turbolinks: false} %>
+          <%= link_to 'delete', w, method: :delete, data: {confirm: 'Are you sure?'} %>
         </td>
       </tr>
     <% end %>

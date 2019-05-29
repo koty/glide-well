@@ -30,7 +30,7 @@ class WorkoutDetailsController < ApplicationController
     workout_detail_params.each do |item|
       detail = WorkoutDetail.new(item)
       detail.workout_id = workout_id
-      if !detail.save
+      unless detail.save
         puts 'error'
       end
     end

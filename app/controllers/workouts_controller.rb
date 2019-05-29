@@ -14,11 +14,10 @@ class WorkoutsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @workout.update(workout_params)
-        format.html {redirect_to @workout, notice: 'Workout was successfully updated.'}
-        format.json {render action: 'show', status: :created, location: @workout}
-      else
+    if @workout.update(workout_params)
+      redirect_to "/workouts/#{@workout.id}/edit"
+    else
+      respond_to do |format|
         format.html {render action: 'new'}
         format.json {render json: @workout.errors, status: :unprocessable_entity}
       end
@@ -29,11 +28,11 @@ class WorkoutsController < ApplicationController
     @workout = Workout.new(workout_params)
     @workout.user_id = current_user.id
     @workout.timestamps = Time.now
-    respond_to do |format|
-      if @workout.save
-        format.html {redirect_to @workout, notice: 'Workout was successfully created.'}
-        format.json {render action: 'show', status: :created, location: @workout}
-      else
+
+    if @workout.save
+      redirect_to "/workouts/#{@workout.id}/edit"
+    else
+      respond_to do |format|
         format.html {render action: 'new'}
         format.json {render json: @workout.errors, status: :unprocessable_entity}
       end

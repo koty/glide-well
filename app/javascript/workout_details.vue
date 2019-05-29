@@ -18,8 +18,8 @@
       </tr>
       </tbody>
     </table>
-    <button @click="addRow">add row</button>
-    <button @click="saveDetails">詳細保存</button>
+    <button @click="addRow" class="btn">add row</button>
+    <button @click="saveDetails" class="btn btn-primary" :disabled="details.length === 0">詳細保存</button>
   </div>
 </template>
 
@@ -61,7 +61,7 @@ export default {
       }
       const min = Math.floor(seconds / 60)
       const sec = seconds - (60 * min)
-      return `${min}.${sec}`
+      return `${min}min ${sec}sec`
     }
   },
 }

@@ -1,11 +1,4 @@
-<h1>Workouts#show</h1>
-<p>Find me in app/views/workouts/show.html.erb</p>
-<div>
-UserId: <%= @workout.user_id %>
-</div>
-<div>
-email: <%= @workout.user.email %>
-</div>
+<h1>Workout</h1>
 <div>
 date: <%= @workout.date %>
 </div>
@@ -13,7 +6,7 @@ date: <%= @workout.date %>
 kind: <%= @workout.kind %>
 </div>
 <div>
-<%= link_to 'Edit', edit_workout_path(@workout) %>
+<%= link_to 'Edit', edit_workout_path(@workout), data: {turbolinks: false} %>
 </div>
 <div>
   <a href="/workouts/">Back</a>

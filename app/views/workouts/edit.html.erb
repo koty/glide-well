@@ -1,12 +1,10 @@
-<h1>Workouts#edit</h1>
-<p>Find me in app/views/workouts/edit.html.erb</p>
+<h1>Edit Workout</h1>
 <%= render 'form' %>
-<h4>詳細</h4>
+<h4>Details</h4>
 <div id="details-container"></div>
 <div>
-<%= link_to 'Show', @workout %>
+  <a href="/workouts/" class="btn btn-default btn-lg active" role="button">Back</a>
 </div>
 <div>
-  <a href="/workouts/">Back</a>
+  <%= javascript_pack_tag 'workout_detail' %>
 </div>
-<%= javascript_pack_tag 'workout_detail' %>
