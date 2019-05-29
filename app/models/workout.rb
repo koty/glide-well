@@ -12,4 +12,5 @@
 class Workout < ApplicationRecord
   belongs_to :user
   enum kind: { swimming: 'swimming', bicycle: 'bicycle' }
+  has_many :workout_details, dependent: :destroy
 end

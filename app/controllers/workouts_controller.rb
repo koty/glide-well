@@ -40,7 +40,7 @@ class WorkoutsController < ApplicationController
   end
 
   def destroy
-    @workout.delete
+    @workout.destroy
     flash[:success] = "Workout deleted"
     redirect_to workouts_url
   end
