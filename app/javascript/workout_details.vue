@@ -18,7 +18,8 @@
       </tr>
       </tbody>
     </table>
-    <button @click="addRow" class="btn">add row</button>
+    <button @click="addRow" class="btn btn-secondary">add row</button>
+    <button @click="fillFromHistory" class="btn btn-secondary">fill</button>
     <button @click="saveDetails" class="btn btn-primary" :disabled="details.length === 0">詳細保存</button>
   </div>
 </template>
@@ -42,7 +43,7 @@ export default {
     deleteRow: function(index) {
       this.details.splice(index, 1);
     },
-    saveDetails: function() {
+    saveDetails: async function() {
       // /workouts/6/edit
       const workout_id = location.pathname.split('/')[2];
       const method = "POST";
@@ -53,7 +54,17 @@ export default {
         'Content-Type': 'application/json',
         'X-CSRF-Token': csrfToken
       };
-      fetch(`/workout_details/${workout_id}/`, {method, headers, body});
+      localStorage.setItem('workout-detail', body);
+      await fetch(`/workout_details/${workout_id}/`, {method, headers, body});
+      alert('saved!')
+    },
+    fillFromHistory: function() {
+      const s = localStorage.getItem('workout-detail')
+      if (!s) {
+        return
+      }
+      const data = JSON.parse(s);
+      this.details = data.workout_details;
     },
     toMinutes: function (seconds) {
       if (!seconds) {
