@@ -13,9 +13,10 @@
         <td><input type="number" v-model="detail.distance" class="input-item" /></td>
         <td><input type="number" v-model="detail.times" class="input-item" /></td>
         <td><input type="number" v-model="detail.interval" class="input-item" />{{toMinutes(detail.interval)}}</td>
-        <td><textarea v-model="detail.note" class="input-item" /></td>
+        <td><textarea v-model="detail.note" class="input-item" rows="1" /></td>
         <td><button @click="deleteRow(index)">del</button></td>
       </tr>
+      <tr><td>total</td><td colspan="3">{{totalDistance}} m</td></tr>
       </tbody>
     </table>
     <button @click="addRow" class="btn btn-secondary">add row</button>
@@ -35,6 +36,12 @@ export default {
     const workout_id = location.pathname.split('/')[2];
     const response = await fetch(`/workout_details/${workout_id}/`);
     this.details = await response.json();
+  },
+  computed: {
+    totalDistance: function() {
+      const num = this.details.map(x => parseInt(x.distance)).reduce((x, y) => x + y);
+      return num.toLocaleString()
+    }
   },
   methods: {
     addRow: function() {
