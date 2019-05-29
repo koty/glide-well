@@ -5,10 +5,7 @@
       <tbody>
       <tr v-for="(detail, index) in details">
         <td><select v-model="detail.menu_kind">
-          <option value="1">swim</option>
-          <option value="2">kick</option>
-          <option value="3">paddle</option>
-          <option value="3">IM</option>
+          <option v-for="item of menu_kinds" v-bind:value="item.value">{{item.text}}</option>
         </select></td>
         <td><input type="number" v-model="detail.distance" class="input-item" /></td>
         <td><input type="number" v-model="detail.times" class="input-item" /></td>
@@ -22,6 +19,7 @@
     <button @click="addRow" class="btn btn-secondary"><i class="fas fa-plus"></i> add row</button>
     <button @click="fillFromHistory" class="btn btn-secondary"><i class="fas fa-fill"></i> fill</button>
     <button @click="saveDetails" class="btn btn-primary" :disabled="details.length === 0">save</button>
+    <button @click="createSlackContent" class="btn btn-secondary"><i class="fas fa-copy"></i> slack</button>
   </div>
 </template>
 
@@ -29,7 +27,14 @@
 export default {
   data: () => {
     return {
-      details: []
+      details: [],
+      menu_kinds: [
+        {value: 1, text: "swim"},
+        {value: 2, text: "kick"},
+        {value: 3, text: "paddle"},
+        {value: 4, text: "IM"},
+        {value: 5, text: "dash"}
+      ]
     }
   },
   mounted: async function() {
@@ -79,7 +84,57 @@ export default {
       }
       const min = Math.floor(seconds / 60)
       const sec = seconds - (60 * min)
-      return `${min}min ${sec}sec`
+      return `${min}'${sec}`
+    },
+    kindToText: function(kindValue) {
+      const found = this.menu_kinds.filter(x => x.kind === kindValue)
+      if (found.length === 0) {
+        return ''
+      }
+      return found[0].text
+    },
+    createSlackContent: function() {
+      const details = this.details.map(x => `${this.kindToText(x.menu_kind)} ${x.distance}m*${x.times} @${this.toMinutes(x.interval)}`).join('\n')
+      const total = this.totalDistance
+      const body = `水泳 :man-swimming:
+
+${details}
+
+total: ${total}m
+`
+      this.execCopy(body)
+      alert('copied!')
+    },
+    execCopy: function(string) {
+      // https://qiita.com/simiraaaa/items/2e7478d72f365aa48356
+      // 空div 生成
+      const tmp = document.createElement("div");
+      // 選択用のタグ生成
+      const pre = document.createElement('pre');
+
+      // 親要素のCSSで user-select: none だとコピーできないので書き換える
+      pre.style.webkitUserSelect = 'auto';
+      pre.style.userSelect = 'auto';
+
+      tmp.appendChild(pre).textContent = string;
+
+      // 要素を画面外へ
+      const s = tmp.style;
+      s.position = 'fixed';
+      s.right = '200%';
+
+      // body に追加
+      document.body.appendChild(tmp);
+      // 要素を選択
+      document.getSelection().selectAllChildren(tmp);
+
+      // クリップボードにコピー
+      const result = document.execCommand("copy");
+
+      // 要素削除
+      document.body.removeChild(tmp);
+
+      return result;
     }
   },
 }
