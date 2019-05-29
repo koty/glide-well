@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  &lt;<%= current_user.email %>&gt;でログイン中
+  you're &lt;<%= current_user.email %>&gt;
   <li>
     <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
   </li>
