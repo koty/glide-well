@@ -11,7 +11,7 @@
     <tr>
       <th scope="col">date</th>
       <th scope="col">kind</th>
-      <th scope="col">distance</th>
+      <th scope="col">distance(m)</th>
       <th scope="col"></th>
     </tr>
     </thead>
@@ -20,7 +20,7 @@
       <tr>
         <td><%= w.date %></td>
         <td><%= w.kind %></td>
-        <td><%= w.total_distance %></td>
+        <td><%= w.total_distance.to_s(:delimited) %></td>
         <td>
           <%= link_to 'edit', edit_workout_path(w), data: {turbolinks: false} %>
           <%= link_to 'delete', w, method: :delete, data: {confirm: 'Are you sure?'} %>
