@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <table class="table">
-      <thead><th>kind</th><th>distance(m)</th><th>times</th><th>interval(sec)</th><th>note</th></thead>
+      <thead><th>kind</th><th>dist(m)</th><th>times</th><th>interval(sec)</th><th>note</th><th></th></thead>
       <tbody>
       <tr v-for="(detail, index) in details">
         <td><select v-model="detail.menu_kind">
@@ -19,9 +19,9 @@
       <tr><td>total</td><td colspan="3">{{totalDistance}} m</td></tr>
       </tbody>
     </table>
-    <button @click="addRow" class="btn btn-secondary">add row</button>
-    <button @click="fillFromHistory" class="btn btn-secondary">fill</button>
-    <button @click="saveDetails" class="btn btn-primary" :disabled="details.length === 0">詳細保存</button>
+    <button @click="addRow" class="btn btn-secondary"><i class="fas fa-plus"></i> add row</button>
+    <button @click="fillFromHistory" class="btn btn-secondary"><i class="fas fa-fill"></i> fill</button>
+    <button @click="saveDetails" class="btn btn-primary" :disabled="details.length === 0">save</button>
   </div>
 </template>
 
@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     totalDistance: function() {
-      const num = this.details.map(x => parseInt(x.distance)).reduce((x, y) => x + y);
+      const num = this.details.map(x => parseInt(x.distance)).reduce((x, y) => x + y, 0);
       return num.toLocaleString()
     }
   },

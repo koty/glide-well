@@ -3,27 +3,40 @@
 <% end %>
 <h1>Workouts List</h1>
 <ul class="users">
-  <%= link_to 'New workout', new_workout_path, data: {turbolinks: false},
+  <%= link_to new_workout_path, data: {turbolinks: false},
               class: "btn btn-primary btn-lg active",
-              role: "button", style: "margin-bottom: 1em;" %>
+              role: "button", style: "margin-bottom: 1em;" do %>
+    <i class="fas fa-swimmer"></i> New workout <i class="fas fa-bicycle"></i>
+<% end %>
   <table class="table">
     <thead>
     <tr>
       <th scope="col">date</th>
       <th scope="col">kind</th>
-      <th scope="col">distance(m)</th>
+      <th scope="col">dist(m)</th>
       <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
     <% @workouts.each do |w| %>
       <tr>
-        <td><%= w.date %></td>
-        <td><%= w.kind %></td>
+        <td><%= w.date.strftime('%m/%d') %></td>
+        <td>
+          <%if w.kind == 'swimming' %>
+            <i class="fas fa-swimmer"></i>
+          <% elsif w.kind == 'bicycle' %>
+            <i class="fas fa-bicycle"></i>
+          <% else %>
+          <% end %>
+        </td>
         <td><%= w.total_distance.to_s(:delimited) %></td>
         <td>
-          <%= link_to 'edit', edit_workout_path(w), data: {turbolinks: false} %>
-          <%= link_to 'delete', w, method: :delete, data: {confirm: 'Are you sure?'} %>
+          <%= link_to edit_workout_path(w), data: {turbolinks: false} do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+          <%= link_to w, method: :delete, data: {confirm: 'Are you sure?'} do %>
+            <i class="fas fa-trash"></i>
+          <% end %>
         </td>
       </tr>
     <% end %>
