@@ -7,6 +7,7 @@
 #  date       :date             not null
 #  kind       :string           not null
 #  timestamps :datetime         not null
+#  impression :text
 #
 
 class Workout < ApplicationRecord
@@ -16,6 +17,8 @@ class Workout < ApplicationRecord
 
   def total_distance
     # workout_details.map(&:distance).sum
-    workout_details.map{|x| x.distance}.sum
+    workout_details.map{|x| x.distance * x.times}.sum
   end
+  # validates :impression,
+  #   length: { minimum: 10, maximum: 20 }
 end

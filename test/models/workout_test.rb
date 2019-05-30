@@ -7,6 +7,7 @@
 #  date       :date             not null
 #  kind       :string           not null
 #  timestamps :datetime         not null
+#  impression :text
 #
 
 require 'test_helper'

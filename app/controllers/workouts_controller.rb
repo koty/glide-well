@@ -9,8 +9,9 @@ class WorkoutsController < ApplicationController
   end
 
   def new
-    @initial_date = Date.today.strftime('%Y-%m-%d')
-    @initial_kind = 'swimming'
+    @workout = Workout.new
+    @workout.date = Date.today.strftime('%Y-%m-%d')
+    @workout.kind = 'swimming'
   end
 
   def update
@@ -18,7 +19,7 @@ class WorkoutsController < ApplicationController
       redirect_to "/workouts/#{@workout.id}/edit"
     else
       respond_to do |format|
-        format.html {render action: 'new'}
+        format.html {render action: 'edit'}
         format.json {render json: @workout.errors, status: :unprocessable_entity}
       end
     end
@@ -47,7 +48,7 @@ class WorkoutsController < ApplicationController
 
   private
   def workout_params
-    params.require(:workout).permit(:date, :kind)
+    params.require(:workout).permit(:date, :kind, :impression)
   end
   def set_workout
     @workout = Workout.find(params[:id])
