@@ -87,7 +87,7 @@ export default {
       return `${min}'${sec}`
     },
     kindToText: function(kindValue) {
-      const found = this.menu_kinds.filter(x => x.kind === kindValue)
+      const found = this.menu_kinds.filter(x => x.value === kindValue)
       if (found.length === 0) {
         return ''
       }
