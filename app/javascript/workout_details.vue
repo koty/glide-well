@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     totalDistance: function() {
-      const num = this.details.map(x => parseInt(x.distance)).reduce((x, y) => x + y, 0);
+      const num = this.details.map(x => parseInt(x.distance) * x.times).reduce((x, y) => x + y, 0);
       return num.toLocaleString()
     }
   },
