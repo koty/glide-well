@@ -17,3 +17,11 @@ module GlideWell
     # the framework and any gems in your application.
   end
 end
+
+module MyApp
+  # http://aknep.hatenablog.com/entry/2017/09/17/230405
+  class Application < Rails::Application
+    require './lib/cloud_front_header.rb'
+    config.middleware.use CloudFrontHeader
+  end
+end
