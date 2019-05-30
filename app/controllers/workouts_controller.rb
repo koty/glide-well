@@ -50,7 +50,13 @@ class WorkoutsController < ApplicationController
   def workout_params
     params.require(:workout).permit(:date, :kind, :impression)
   end
+
   def set_workout
-    @workout = Workout.find(params[:id])
+    workouts = Workout.where(id: params[:id], user_id: current_user.id)
+    if workouts.empty?
+      raise ActionController::RoutingError.new('Not Found')
+    else
+      @workout = workouts[0]
+    end
   end
 end
